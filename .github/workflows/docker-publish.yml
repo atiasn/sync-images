@@ -12,6 +12,7 @@ on:
     paths:
       - 'retag_push'
       - 'sync_images.txt'
+      - '.github/workflows/**'
 
   schedule:
     - cron: '30 5 * * *'
