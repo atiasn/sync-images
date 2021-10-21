@@ -1,0 +1,20 @@
+os: linux
+dist: trusty
+
+git:
+  depth: false
+  submodules: false
+
+script:
+  # Git Config
+  - git config --global user.name "ritboy"
+  - git config --global user.email "ritboylei@gmail.com"
+
+  # clone 代码
+  - git clone https://github.com/ritboylei/sync-images.git
+  - cd ./sync-images
+  - echo `date -d now` > build-time.txt
+  - git remote set-url origin https://${GITHUB_TOKEN}@github.com/ritboylei/sync-images.git
+  - git add .
+  - git commit -m "sync images `date "+%Y-%m-%d"`"
+  - git push

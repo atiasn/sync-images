@@ -1,0 +1,49 @@
+name: Docker Hub 中镜像同步到阿里云镜像仓库
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+on:
+  push:
+    branches:
+      - main
+
+  schedule:
+    - cron: '30 5 * * *'
+
+
+env:
+  # Use docker.io for Docker Hub if empty
+  REGISTRY: registry.cn-chengdu.aliyuncs.com
+
+
+jobs:
+  docker-image-retag-and-push:
+    name: Docker Hub 中镜像同步到阿里云镜像仓库
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: 拉取代码
+        uses: actions/checkout@v2
+
+      # Login against a Docker registry except on PR
+      # https://github.com/docker/login-action
+      - name: 登录镜像仓库 ${{ env.REGISTRY }}
+        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ secrets.ALI_DOCKER_USERNAME }}
+          password: ${{ secrets.ALI_DOCKER_PASSWORD }}
+      
+      - name: 准备 python 环境
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: 推送镜像到阿里云
+        run: python retag_push.py
