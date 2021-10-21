@@ -1,4 +1,4 @@
-name: Docker Hub 中镜像同步到阿里云镜像仓库
+name: Docker Hub 镜像同步
 
 # This workflow uses actions that are not certified by GitHub.
 # They are provided by a third-party and are governed by
@@ -15,7 +15,7 @@ on:
       - '.github/workflows/**'
 
   schedule:
-    - cron: '30 5 * * *'
+    - cron: '30 22 * * *'
 
 
 env:
