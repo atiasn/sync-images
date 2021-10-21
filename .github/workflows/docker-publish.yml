@@ -9,6 +9,9 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'retag_push'
+      - 'sync_images.txt'
 
   schedule:
     - cron: '30 5 * * *'
