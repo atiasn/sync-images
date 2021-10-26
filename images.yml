@@ -1,0 +1,9 @@
+images:
+  - name: python:alpine
+    os: alpine
+  - name: golang:alpine
+    os: alpine
+  - name: ubuntu:18.04
+    os: ubuntu
+  - name: ubuntu:20.04
+    os: ubuntu
